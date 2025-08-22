@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Billage — Чит и игровая валюта Black Russia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              500: '#2ea9ff',
+              400: '#5fc1ff'
+            },
+            dark: '#0a0f1a'
+          },
+          boxShadow: {
+            glow: '0 10px 30px -10px rgba(46,169,255,.6)'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1) }
+  </style>
+</head>
+<body class="bg-dark text-white">
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-dark/70 glass">
+    <div class="mx-auto max-w-7xl flex justify-between items-center h-16 px-4">
+      <span class="text-xl font-extrabold">Billage</span>
+      <nav class="hidden md:flex gap-6">
+        <a href="#features" class="hover:text-brand-400">Функции</a>
+        <a href="#reviews" class="hover:text-brand-400">Отзывы</a>
+        <a href="#pricing" class="hover:text-brand-400">Цены</a>
+        <a href="#faq" class="hover:text-brand-400">FAQ</a>
+      </nav>
+      <a href="pay.html" class="rounded-xl bg-brand-500 px-4 py-2 font-semibold shadow-glow hover:bg-brand-400">Оплатить</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative py-20">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-10 px-4 items-center">
+      <div data-aos="fade-right">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">Billage — лучший чит<br><span class="text-brand-400">для CRMP</span></h1>
+        <p class="mt-4 text-white/80">Премиальные функции, которые делают игру комфортной. Легко фармить, быстро прокачиваться и всегда быть впереди. Цена: месяц — 299₽, год — 1499₽. А ещё можно купить игровую валюту прямо у нас.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="pay.html" class="rounded-2xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition transform hover:scale-105">Начать</a>
+          <a href="#features" class="rounded-2xl border border-white/20 px-6 py-3 font-semibold hover:bg-white/5 transition">Подробнее</a>
+        </div>
+      </div>
+      <div data-aos="zoom-in">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop" class="rounded-3xl shadow-2xl"/>
+      </div>
+    </div>
+  </section>
+
+<!-- Features -->
+<section id="features" class="py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <h2 class="text-3xl font-extrabold text-center mb-4" data-aos="fade-up">
+      Функции <span class="text-brand-400">Billage</span>
+    </h2>
+    <p class="text-center text-white/70 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+      Максимальный комфорт, скорость и защита — всё, что нужно, чтобы быть на шаг впереди.
+    </p>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Автофарм -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <h3 class="text-lg font-bold">Автофарм ресурсов</h3>
+        </div>
+        <p class="text-white/70">Фармит материалы без участия игрока, экономя десятки часов.</p>
+      </div>
+
+      <!-- Автодобыча -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M12 2l9 4.9v9.8L12 22l-9-5.3V6.9z"/></svg>
+          <h3 class="text-lg font-bold">Автодобыча</h3>
+        </div>
+        <p class="text-white/70">Шахта, лес, рыбалка — добывай полностью автоматически.</p>
+      </div>
+
+      <!-- Телепорты -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M12 19V6m0 0L5 13m7-7l7 7"/></svg>
+          <h3 class="text-lg font-bold">Телепорты</h3>
+        </div>
+        <p class="text-white/70">Мгновенно перемещайся по карте в любую точку.</p>
+      </div>
+
+      <!-- Aim Assist -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+          <h3 class="text-lg font-bold">Aim Assist</h3>
+        </div>
+        <p class="text-white/70">Идеальная стрельба — больше попаданий, меньше промахов.</p>
+      </div>
+
+      <!-- Кастомизация -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="400">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M12 3v18m9-9H3"/></svg>
+          <h3 class="text-lg font-bold">Кастомизация UI</h3>
+        </div>
+        <p class="text-white/70">Гибко настраивай интерфейс под свой стиль игры.</p>
+      </div>
+
+      <!-- Антибан -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="500">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3 class="text-lg font-bold">Анти-бан система</h3>
+        </div>
+        <p class="text-white/70">Многоуровневая защита и частые обновления.</p>
+      </div>
+
+      <!-- FPS -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="600">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <h3 class="text-lg font-bold">Boost FPS</h3>
+        </div>
+        <p class="text-white/70">Оптимизация клиента — больше кадров, меньше лагов.</p>
+      </div>
+
+      <!-- Скрипты -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="700">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>
+          <h3 class="text-lg font-bold">Приватные скрипты</h3>
+        </div>
+        <p class="text-white/70">Уникальные фишки, которых нет ни у кого кроме Billage.</p>
+      </div>
+
+      <!-- Поддержка -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="800">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3 class="text-lg font-bold">Поддержка 24/7</h3>
+        </div>
+        <p class="text-white/70">Моментальные ответы в Telegram и полное сопровождение.</p>
+      </div>
+
+      <!-- Валюта -->
+      <div class="glass rounded-2xl p-6 hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="900">
+        <div class="flex items-center gap-3 mb-3">
+          <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path d="M12 8c-1.1 0-2 .9-2 2v1H8v2h2v1c0 1.1.9 2 2 2h1v2h2v-2h1c1.1 0 2-.9 2-2v-1h2v-2h-2v-1c0-1.1-.9-2-2-2h-1V6h-2v2h-1z"/></svg>
+          <h3 class="text-lg font-bold">Виртуальная валюта</h3>
+        </div>
+        <p class="text-white/70">Прямо в клиенте — быстрая покупка игровой валюты.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Screenshots
+  <section id="screens" class="py-20 bg-white/5">
+    <div class="mx-auto max-w-7xl px-4">
+      <h2 class="text-3xl font-extrabold text-center" data-aos="fade-up">Скриншоты</h2>
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <img src="https://picsum.photos/400/250?1" class="rounded-xl hover:scale-105 transition" data-aos="zoom-in">
+        <img src="https://picsum.photos/400/250?2" class="rounded-xl hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="100">
+        <img src="https://picsum.photos/400/250?3" class="rounded-xl hover:scale-105 transition" data-aos="zoom-in" data-aos-delay="200">
+      </div>
+    </div>
+  </section> -->
+
+  <!-- Reviews -->
+<section id="reviews" class="py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <h2 class="text-3xl font-extrabold text-center" data-aos="fade-up">Отзывы игроков</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="glass rounded-2xl p-6" data-aos="fade-up">
+        <img src="https://i.pravatar.cc/100?img=11" class="w-16 h-16 rounded-full mb-4">
+        <p class="italic">«Реально лучший чит, фармлю валюту на изи, всё работает стабильно. Поддержка отвечает моментально!»</p>
+        <p class="mt-3 font-bold">— Даниил</p>
+      </div>
+      <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://i.pravatar.cc/100?img=22" class="w-16 h-16 rounded-full mb-4">
+        <p class="italic">«Купил на год за 1499₽, это копейки за такой функционал. Никаких банов, всё огонь!»</p>
+        <p class="mt-3 font-bold">— Артём</p>
+      </div>
+      <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://i.pravatar.cc/100?img=33" class="w-16 h-16 rounded-full mb-4">
+        <p class="italic">«Очень удобно покупать валюту прямо у них, вывели быстро, без проблем. Респект Billage!»</p>
+        <p class="mt-3 font-bold">— Никита</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Pricing -->
+<section id="pricing" class="py-20 bg-white/5">
+  <div class="mx-auto max-w-7xl px-4">
+    <h2 class="text-3xl font-extrabold text-center mb-4" data-aos="fade-up">
+      Тарифы <span class="text-brand-400">Billage</span>
+    </h2>
+    <p class="text-center text-white/70 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+      Выбирай удобный вариант подписки или покупай игровую валюту напрямую.
+    </p>
+
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Месяц -->
+      <div class="glass rounded-2xl p-6 text-center relative hover:scale-[1.03] transition" data-aos="fade-up">
+        <div class="absolute top-4 left-4 bg-brand-500/20 text-brand-400 px-3 py-1 rounded-lg text-sm font-semibold">Популярно</div>
+        <h3 class="text-xl font-bold">Месяц</h3>
+        <p class="mt-2 text-3xl font-extrabold">299₽</p>
+        <p class="mt-2 text-white/70">Полный доступ ко всем функциям на <span class="font-semibold">30 дней</span>. Идеально для теста и старта.</p>
+        <a href="pay.html" class="mt-6 inline-block rounded-xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition">Купить</a>
+      </div>
+
+      <!-- Год -->
+      <div class="glass rounded-2xl p-6 text-center border-2 border-brand-400 shadow-glow relative hover:scale-[1.05] transition" data-aos="fade-up" data-aos-delay="100">
+        <div class="absolute top-4 left-4 bg-brand-500 text-white px-3 py-1 rounded-lg text-sm font-semibold shadow-lg">Выгодно</div>
+        <h3 class="text-xl font-bold">Год</h3>
+        <p class="mt-2 text-3xl font-extrabold">1499₽</p>
+        <p class="mt-2 text-white/70">Лучшая цена — полный доступ на <span class="font-semibold">12 месяцев</span>. Экономия до <span class="text-brand-400 font-semibold">70%</span>.</p>
+        <a href="pay.html" class="mt-6 inline-block rounded-xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition">Купить</a>
+      </div>
+
+      <!-- Валюта -->
+      <div class="glass rounded-2xl p-6 text-center hover:scale-[1.03] transition" data-aos="fade-up" data-aos-delay="200">
+        <div class="absolute top-4 left-4 bg-brand-500/20 text-brand-400 px-3 py-1 rounded-lg text-sm font-semibold">Гибко</div>
+        <h3 class="text-xl font-bold">Валюта</h3>
+        <p class="mt-2 text-3xl font-extrabold">от 100₽</p>
+        <p class="mt-2 text-white/70">Купи любое количество игровой валюты. Выдача моментальная после оплаты.</p>
+        <a href="pay.html" class="mt-6 inline-block rounded-xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition">Купить</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20">
+    <div class="mx-auto max-w-3xl px-4">
+      <h2 class="text-3xl font-extrabold text-center" data-aos="fade-up">FAQ</h2>
+      <div class="mt-10 space-y-6">
+        <div class="glass rounded-xl p-4" data-aos="fade-up"><b>Безопасно ли?</b><br> Да, у нас есть встроенная защита от банов и мы постоянно обновляем софт.</div>
+        <div class="glass rounded-xl p-4" data-aos="fade-up" data-aos-delay="100"><b>Как оплатить?</b><br> На странице оплаты выберите тариф или количество валюты и после покупки напишите нам в <a href="https://t.me/billage_help" class="text-brand-400">поддержку</a>.</div>
+        <div class="glass rounded-xl p-4" data-aos="fade-up" data-aos-delay="200"><b>Сколько ждать активацию?</b><br> В среднем от 5 до 15 минут.</div>
+        <div class="glass rounded-xl p-4" data-aos="fade-up" data-aos-delay="300"><b>Можно ли вернуть деньги?</b><br> Да, если услуга не предоставлена или есть технические проблемы по нашей вине.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 text-center text-white/60">
+    <p>© <span id="year"></span> Billage. Все права защищены.</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 800, once: true });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
