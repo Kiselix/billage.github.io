@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Billage — Оплата</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#2ea9ff', 400: '#5fc1ff', 300: '#8fd6ff' },
+            dark: '#0a0f1a'
+          },
+          boxShadow: {
+            glow: '0 10px 30px -10px rgba(46,169,255,.6)'
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } }
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.5s ease-out forwards'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1) }
+    select option { background: #0a0f1a; }
+  </style>
+</head>
+<body class="bg-dark text-white">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-dark/70 glass">
+    <div class="mx-auto max-w-7xl flex justify-between items-center h-16 px-4">
+      <a href="index.html" class="text-xl font-extrabold">Billage</a>
+      <a href="index.html#pricing" class="rounded-xl bg-brand-500 px-4 py-2 font-semibold shadow-glow hover:bg-brand-400">Назад</a>
+    </div>
+  </header>
+
+  <!-- Payment Section -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-4">
+      <h1 class="text-3xl font-extrabold text-center mb-10">Оплата подписки или валюты</h1>
+
+      <!-- STEP 1: user + product -->
+      <form class="space-y-6 glass rounded-2xl p-8" data-aos="fade-up">
+        <!-- Nick input -->
+        <div>
+          <label class="block mb-2 font-semibold">Ваш ник в игре</label>
+          <input id="nickname" type="text" placeholder="Например: Ivan_Smirnov" class="w-full rounded-xl bg-dark/70 border border-white/20 p-3 focus:outline-none focus:ring-2 focus:ring-brand-400">
+        </div>
+
+        <!-- Product select -->
+        <div id="product-wrapper" class="hidden animate-fadeIn">
+          <label class="block mb-2 font-semibold">Выберите продукт</label>
+          <select id="product" class="w-full rounded-xl bg-dark/70 border border-white/20 p-3 focus:outline-none focus:ring-2 focus:ring-brand-400">
+            <option value="month">Подписка на 1 месяц — 299₽</option>
+            <option value="year">Подписка на 1 год — 1499₽</option>
+            <option value="currency">Игровая валюта (укажите количество)</option>
+          </select>
+        </div>
+
+        <!-- Currency input -->
+        <div id="currency-input" class="hidden animate-fadeIn">
+          <label class="block mb-2 font-semibold">Количество валюты (мин. 1 000 000)</label>
+          <input id="currencyAmount" type="number" min="1000000" step="100000" placeholder="Например: 1 000 000" class="w-full rounded-xl bg-dark/70 border border-white/20 p-3 focus:outline-none focus:ring-2 focus:ring-brand-400">
+          <p id="currency-price" class="text-sm mt-2"></p>
+        </div>
+
+        <!-- STEP 2: payment method -->
+        <div id="pay-method-wrapper" class="hidden animate-fadeIn">
+          <label class="block mb-2 font-semibold">Способ оплаты</label>
+          <select id="payMethod" class="w-full rounded-xl bg-dark/70 border border-white/20 p-3 focus:outline-none focus:ring-2 focus:ring-brand-400">
+            <option value="qr">QR (СБП)</option>
+            <option value="card">Перевод на карту</option>
+            <option value="um">ЮMoney</option>
+            <option value="crypto">USDT (TRC20)</option>
+          </select>
+        </div>
+
+        <!-- STEP 3: summary -->
+        <div id="summary" class="hidden glass rounded-2xl p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div class="text-white/60 text-sm">К оплате</div>
+              <div id="summary-amount" class="text-2xl font-extrabold">—</div>
+              <div id="summary-desc" class="text-white/60 text-sm mt-1">—</div>
+            </div>
+            <button type="button" id="payBtn" class="rounded-xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition">Перейти к оплате</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+<!-- MODAL -->
+<div id="paymentModal" class="fixed inset-0 z-50 bg-black/50 hidden flex items-center justify-center">
+  <div id="modalContentWrapper" class="glass rounded-2xl p-6 max-w-lg w-full transform scale-95 opacity-0 transition-all duration-300 relative">
+    <!-- Close btn -->
+    <button onclick="closeModal()" class="absolute top-3 right-3 text-white/60 hover:text-white text-2xl">&times;</button>
+    <!-- Dynamic content -->
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+
+
+  <!-- Footer -->
+  <footer class="py-10 text-center text-white/60">
+    <p>© <span id="year"></span> Billage. Все права защищены.</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nicknameInput = document.getElementById('nickname');
+    const productWrapper = document.getElementById('product-wrapper');
+    const productSelect = document.getElementById('product');
+    const currencyInput = document.getElementById('currency-input');
+    const currencyAmount = document.getElementById('currencyAmount');
+    const currencyPrice = document.getElementById('currency-price');
+    const payMethodWrapper = document.getElementById('pay-method-wrapper');
+    const payMethod = document.getElementById('payMethod');
+    const summary = document.getElementById('summary');
+    const summaryAmount = document.getElementById('summary-amount');
+    const summaryDesc = document.getElementById('summary-desc');
+    const payBtn = document.getElementById('payBtn');
+
+    let currentAmount = 0; // integer RUB
+    function formatNumber(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+
+    // Step visibility logic
+    nicknameInput.addEventListener('input', () => {
+      const hasNick = nicknameInput.value.trim().length > 0;
+      productWrapper.classList.toggle('hidden', !hasNick);
+      if (!hasNick) {
+        currencyInput.classList.add('hidden');
+        payMethodWrapper.classList.add('hidden');
+        summary.classList.add('hidden');
+      }
+    });
+
+    productSelect.addEventListener('change', updatePriceUI);
+    currencyAmount.addEventListener('input', updatePriceUI);
+
+    function updatePriceUI() {
+      const product = productSelect.value;
+      if (product === 'currency') {
+        currencyInput.classList.remove('hidden');
+        const val = parseInt(currencyAmount.value);
+        if (!isNaN(val) && val >= 1000000) {
+          currentAmount = Math.round((val / 100000) * 10); // 100к = 10₽, минимум 1кк = 100₽
+          currencyPrice.textContent = `К оплате: ${formatNumber(currentAmount)}₽`;
+          currencyPrice.className = 'text-green-400 text-sm mt-2';
+          showMethodAndSummary();
+        } else {
+          currencyPrice.textContent = 'Минимум 1 000 000 игровых (100₽)';
+          currencyPrice.className = 'text-red-400 text-sm mt-2';
+          payMethodWrapper.classList.add('hidden');
+          summary.classList.add('hidden');
+        }
+      } else {
+        currencyInput.classList.add('hidden');
+        currentAmount = (product === 'month') ? 299 : 1499;
+        showMethodAndSummary();
+      }
+    }
+
+    function showMethodAndSummary() {
+      payMethodWrapper.classList.remove('hidden');
+      summary.classList.remove('hidden');
+      summaryAmount.textContent = formatNumber(currentAmount) + '₽';
+      const product = productSelect.value;
+      const nick = nicknameInput.value.trim();
+      const desc = product === 'month' ? 'Подписка на 1 месяц' : product === 'year' ? 'Подписка на 1 год' : `Игровая валюта (${formatNumber(parseInt(currencyAmount.value)||0)} ед.)`;
+      summaryDesc.textContent = `${desc} • Ник: ${nick}`;
+    }
+
+    // MODAL LOGIC
+function openModal(content) {
+  const modal = document.getElementById("paymentModal");
+  const wrapper = document.getElementById("modalContentWrapper");
+  document.getElementById("modalContent").innerHTML = content;
+  
+  modal.classList.remove("hidden");
+  // Анимация
+  setTimeout(() => {
+    wrapper.classList.remove("scale-95", "opacity-0");
+  }, 50);
+}
+
+function closeModal() {
+  const modal = document.getElementById("paymentModal");
+  const wrapper = document.getElementById("modalContentWrapper");
+  
+  wrapper.classList.add("scale-95", "opacity-0");
+  setTimeout(() => {
+    modal.classList.add("hidden");
+  }, 300);
+}
+
+
+    payBtn.addEventListener('click', () => {
+  const nick = nicknameInput.value.trim();
+  const product = productSelect.value;
+  const comment = (product === 'currency') ? `BILLAGE • Валюта • ${nick}` : (product === 'month' ? `BILLAGE • Месяц • ${nick}` : `BILLAGE • Год • ${nick}`);
+  let modalHTML = "";
+
+  const paidButton = `<button class="mt-4 w-full rounded-xl bg-green-500 hover:bg-green-400 text-white px-4 py-2" onclick="paid()">Я оплатил</button>`;
+
+  if (payMethod.value === 'qr') {
+    modalHTML = `
+      <h3 class="text-xl font-bold mb-2">Оплата по QR (СБП)</h3>
+      <p class="text-white/70 text-sm mb-4">Откройте приложение банка и отсканируйте QR-код. В назначении укажите ваш ник.</p>
+      <div class="flex items-center justify-center bg-white rounded-xl p-4">
+  <img src="твой_путь_к_QR.png" alt="QR-код для оплаты" class="w-[240px] h-[240px] object-contain">
+</div>
+      <div class="mt-4 text-sm text-white/70">
+        Сумма: <span class="font-semibold text-white">${formatNumber(currentAmount)}₽</span><br>
+        Комментарий: <span class="font-semibold text-white">${comment}</span>
+      </div>
+      <button class="mt-2 w-full rounded-xl border border-white/20 px-4 py-2 hover:bg-white/5" 
+        onclick="copyText('PAY TO BILLAGE\\nAMOUNT: ${currentAmount} RUB\\nCOMMENT: ${comment}')">Скопировать платёжные данные</button>
+      ${paidButton}`;
+    setTimeout(() => { QRCode.toCanvas(document.getElementById('qrCanvas'), `PAY TO BILLAGE\nAMOUNT: ${currentAmount} RUB\nCOMMENT: ${comment}`, { width: 240, margin: 1 }); }, 50);
+  }
+
+  else if (payMethod.value === 'card') {
+    modalHTML = `
+      <h3 class="text-xl font-bold mb-2">Перевод на карту</h3>
+      <p class="text-white/70 text-sm">Скопируйте реквизиты и переведите указанную сумму. В комментарии укажите ваш ник.</p>
+      <div class="mt-4 space-y-3">
+        <div class="bg-white/5 rounded-xl p-3 flex justify-between items-center">
+          <div>
+            <div class="text-xs text-white/60">Номер карты</div>
+            <div class="font-mono text-lg">2200 7007 7007 7007</div>
+          </div>
+          <button class="border border-white/20 px-3 py-1 rounded hover:bg-white/5" onclick="copyText('22007007700770')">Копировать</button>
+        </div>
+        <div class="bg-white/5 rounded-xl p-3 flex justify-between items-center">
+          <div>
+            <div class="text-xs text-white/60">Сумма</div>
+            <div class="font-semibold">${formatNumber(currentAmount)}₽</div>
+          </div>
+          <button class="border border-white/20 px-3 py-1 rounded hover:bg-white/5" onclick="copyText('${currentAmount} RUB')">Копировать</button>
+        </div>
+        <div class="bg-white/5 rounded-xl p-3 flex justify-between items-center">
+          <div>
+            <div class="text-xs text-white/60">Комментарий</div>
+            <div class="font-mono">${comment}</div>
+          </div>
+          <button class="border border-white/20 px-3 py-1 rounded hover:bg-white/5" onclick="copyText('${comment}')">Копировать</button>
+        </div>
+      </div>
+      ${paidButton}`;
+  }
+
+  else {
+    modalHTML = `
+      <h3 class="text-xl font-bold mb-2">Способ оплаты на доработке</h3>
+      <p class="text-white/70 text-sm">
+        Этот способ оплаты пока не доступен. Скоро будет добавлен.
+      </p>`;
+  }
+
+  openModal(modalHTML);
+});
+
+// Функция кнопки "Я оплатил"
+function paid() {
+  const modalContent = document.getElementById("modalContent");
+  modalContent.innerHTML = `
+    <h3 class="text-xl font-bold mb-2 text-center">Спасибо за покупку!</h3>
+    <p class="text-white/70 text-sm text-center mb-4">
+      В течение 10 минут с вами свяжется оператор.<br>
+      Если прошло больше 10 минут — напишите <a href="https://t.me/billage_help" class="text-blue-400 underline">t.me/billage_help</a>.
+    </p>
+    <div class="flex justify-center">
+      <button class="rounded-xl bg-brand-500 px-6 py-3 font-semibold shadow-glow hover:bg-brand-400 transition" onclick="closeModal()">Закрыть</button>
+    </div>
+  `;
+}
+
+  </script>
+</body>
+</html>
